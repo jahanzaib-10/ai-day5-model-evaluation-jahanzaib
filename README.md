@@ -1,20 +1,25 @@
-# AI Internship Day 04 - Feature Engineering & Classical Machine Learning Pipeline  (Titanic Dataset)
+# AI Lab 99 Internship Program - Day 5 Activity Task
+
+## Model Evaluation, Explainability, and Error Analysis using Machine Learning
 
 ---
 
 ## 📌 Project Overview
 
-This repository contains the solution and documentation for my AI Internship Day 4 project. In this project, I built an end-to-end machine learning pipeline using the Titanic dataset to predict passenger survival outcomes based on feature engineering, missing value imputation, encoding, scaling, and classical machine learning models.
+This repository contains the solution and documentation for my AI Internship Day 5 project. Building upon the classification models trained previously, this project focuses on rigorous model evaluation from a technical and business perspective, threshold tuning, cost-sensitive analysis, feature importance ranking, SHAP-based model explainability, error analysis, and actionable business recommendations using the Titanic dataset.
 
 ---
 
 ## 🚀 Learning Outcomes
 
-- Applied robust missing-value imputation techniques for numerical and categorical features.
-- Implemented categorical variable encoding via One-Hot Encoding.
-- Standardized continuous numerical variables using standard scaling.
-- Built reproducible scikit-learn Pipelines and ColumnTransformers.
-- Trained and evaluated baseline, linear, and tree-based classification models with 5-fold cross-validation.
+- Evaluated classification models using confusion matrices, accuracy, precision, recall, F1-score, ROC-AUC, and PR-AUC.
+- Performed classification threshold tuning to optimize performance for business requirements.
+- Assessed model calibration using reliability diagrams.
+- Conducted cost-sensitive evaluation to minimize business financial risks arising from prediction errors.
+- Generated feature importance rankings for tree-based models.
+- Interpreted model predictions using SHAP (SHapley Additive exPlanations) summary, bar, and waterfall plots.
+- Executed manual error analysis and built a structured error taxonomy.
+- Documented model limitations and recommended future improvements.
 
 ---
 
@@ -23,24 +28,38 @@ This repository contains the solution and documentation for my AI Internship Day
 To ensure a clean, modular, and maintainable project architecture, the following folder structure was implemented:
 
 ```text
-ai-day4-feature-engineering-ml-jahanzaib/
+ai-day5-model-evaluation-jahanzaib/
 │
 ├── data/
 │   ├── processed/
+│   │   ├── test_processed.csv
+│   │   └── train_processed.csv
 │   └── raw/
 │       └── titanic.csv
 │
 ├── docs/
-│   ├── business_recommendation.md
-│   └── feature_engineering_report.md
+│   └── final_evaluation_report.md
+│
+├── models/
+│   └── best_model.pkl
 │
 ├── notebooks/
-│   └── day4_ml_pipeline.ipynb
+│   └── day5_evaluation.ipynb
+│
+├── outputs/
+│   └── figures/
+│       ├── calibration_curve.png
+│       ├── confusion_matrix.png
+│       ├── feature_importance.png
+│       ├── precision_recall_curve.png
+│       ├── roc_curve.png
+│       ├── shap_summary.png
+│       └── shap_waterfall.png
 │
 ├── src/
 │   ├── __init__.py
-│   ├── preprocess.py
-│   └── train_models.py
+│   ├── evaluate.py
+│   └── explain.py
 │
 ├── .gitignore
 ├── LICENSE
@@ -51,77 +70,63 @@ ai-day4-feature-engineering-ml-jahanzaib/
 
 ## ⚠️ Important Rule
 
-Files inside the data/raw/ folder are treated as an immutable source of truth and must never be edited, modified, or overwritten directly.
+Files inside the `data/raw/` folder are treated as an immutable source of truth and must never be edited, modified, or overwritten directly.
+
+---
 
 ## 💻 Environment Setup & Installation
 
-Open your project folder in VS Code.
+- Open your project folder in VS Code.
+- Ensure that Python is installed on your system.
+- Open the terminal and run the following command to install dependencies:
 
-Ensure that Python is installed on your system.
+bash
 
-Open the terminal and run the following command to install dependencies:
-
-Bash
-python -m pip install -r requirements.txt
+py -m pip install -r requirements.txt
 
 ## 🏃‍♂️ Running the Project
 
-To run the machine learning pipeline notebook, open notebooks/day4_ml_pipeline.ipynb in VS Code or Jupyter Notebook.
+To run the interactive model evaluation pipeline, open notebooks/day5_evaluation.ipynb in VS Code or Jupyter Notebook, or execute the python source scripts located in the src/ directory:
+
+Bash
+
+python src/evaluate.py
+
+python src/explain.py
 
 ## 📊 Key Tasks Performed
 
-Dataset Loading & Inspection: Loaded the Titanic dataset (titanic.csv) and inspected feature types and structures.
+1. **Model Loading:** Loaded the best-performing model (`best_model.pkl`) and processed test datasets.
+2. **Performance Metrics:** Calculated Accuracy, Precision, Recall, F1-Score, ROC-AUC, and PR-AUC.
+3. **Confusion Matrix Analysis:** Generated confusion matrix plots and analyzed True/False Positives and Negatives.
+4. **Threshold Tuning:** Evaluated alternative classification thresholds (0.30 to 0.70) to optimize performance.
+5. **ROC & PR Curves:** Generated and interpreted ROC and Precision-Recall curves.
+6. **Model Calibration:** Plotted and reviewed probability calibration curves.
+7. **Cost-Sensitive Evaluation:** Computed total business error costs based on assigned False Positive ($50) and False Negative ($200) costs.
+8. **Feature Importance:** Extracted top feature rankings from tree-based models.
+9. **SHAP Explainability:** Generated SHAP summary, bar, and waterfall plots for deep model interpretability.
+10. **Error Analysis:** Categorized misclassified records into an error taxonomy and inspected failure reasons.
+11. **Limitations & Recommendations:** Documented dataset constraints and proposed 5 future experimentation strategies.
 
-Target Variable Selection: Selected and justified the Survived target variable for passenger survival prediction.
+## 📈 Model Evaluation Summary
 
-Missing Value Imputation: Handled missing values using median imputation for numerical features and most-frequent imputation for categorical features.
-
-Encoding: Converted categorical features into numerical format using One-Hot Encoding.
-
-Scaling: Scaled numerical variables using standard scaling.
-
-Feature Selection: Selected relevant predictors to optimize model efficiency.
-
-Data Splitting: Partitioned data into 80% training and 20% testing sets using stratification (random_state=42).
-
-Pipeline Construction: Built an integrated scikit-learn preprocessing pipeline using ColumnTransformer.
-
-Baseline Model: Trained a Dummy baseline classifier to establish lower-bound performance metrics.
-
-Logistic Regression: Trained a linear classification model.
-
-Random Forest: Trained an ensemble tree-based classification model.
-
-Cross-Validation: Performed 5-fold cross-validation across all models.
-
-Model Comparison: Compared Accuracy, Precision, Recall, F1-Score, and CV scores.
-
-Model Interpretation: Analyzed results and recommended the optimal production model.
-
-Workflow Documentation: Documented the complete pipeline architecture and business insights.
-
-## 📈 Model Performance & Comparison Results
-
-| Model | Accuracy | Precision (Class 1) | Recall (Class 1) | F1-Score (Class 1) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Logistic Regression** | **80.44%** | 0.79 | 0.67 | 0.72 |
-| **Random Forest Classifier** | **81.56%** | 0.80 | 0.70 | 0.74 |
+| Metric / Evaluation Component | Value / Outcome | Business Interpretation |
+| :--- | :--- | :--- |
+| **ROC-AUC Score** | High performance | Strong capability in distinguishing between survival classes. |
+| **PR-AUC Score** | Balanced metric | Effective performance handling class distributions. |
+| **Total Error Cost** | **$5,000** | Calculated based on FP ($50) and FN ($200) error penalties. |
+| **Primary Error Risk** | False Negatives ($4,200) | High business penalty for missed positive predictions. |
 
 ## 📋 Project Deliverables Checklist
 
-[1] Python Jupyter Notebook (notebooks/day4_ml_pipeline.ipynb)
-
-[2] Reusable Python Scripts (src/)
-
-[3] Feature Engineering Report (docs/feature_engineering_report.md)
-
-[4] Business Recommendation Report (docs/business_recommendation.md)
-
-[5] Model Comparison & Evaluation Table (README.md)
-
-[6] Immutable Raw Dataset (data/raw/titanic.csv)
+[1] Python Jupyter Notebook (notebooks/day5_evaluation.ipynb)  
+[2] Reusable Python Scripts (src/evaluate.py, src/explain.py)  
+[3] Final Evaluation Report (docs/final_evaluation_report.md)  
+[4] Saved Model Visualizations (outputs/figures/)  
+[5] Serialized Best Model (models/best_model.pkl)  
+[6] Immutable Raw & Processed Datasets (data/)  
 
 **Author**  
 **Student Name: Muhammad Jahanzaib Azhar**  
-**Internship Program: AI Internship**  
-**Date: July 27, 2026**
+**Internship Program: AI Lab 99 Internship Program**  
+**Date: July 28, 2026**
